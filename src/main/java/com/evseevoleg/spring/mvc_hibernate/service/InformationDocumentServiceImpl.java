@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * реализует интерфейс Service
+ */
 @Service
 public class InformationDocumentServiceImpl implements InformationDocumentService {
     @Autowired
@@ -17,5 +20,11 @@ public class InformationDocumentServiceImpl implements InformationDocumentServic
     @Transactional
     public List<InformationDocument> getAllInfoDocument() {
         return informationDocumentDAO.getAllInfoDocument();
+    }
+
+    @Override
+    @Transactional
+    public void saveInfDoc(InformationDocument informationDocument) {
+        informationDocumentDAO.saveInfDoc(informationDocument);
     }
 }

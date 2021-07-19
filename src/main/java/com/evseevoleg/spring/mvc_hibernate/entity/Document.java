@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * класс-таблица type_documents с БД
+ */
 @Entity
 @Table(name = "type_document")
 public class Document {

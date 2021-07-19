@@ -1,5 +1,9 @@
 package com.evseevoleg.spring.mvc_hibernate.entity;
 
+
+/**
+ * сущность для страницы информации о всех людях
+ */
 public class PeopleShow {
     private String firstName;
     private String lastName;

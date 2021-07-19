@@ -7,25 +7,41 @@ import com.evseevoleg.spring.mvc_hibernate.service.InformationDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *обрабатывает запрос пользователя, создаёт соответствующую
+ * Модель и передаёт её для отображения в view
+ */
 @Controller
 public class MyController {
-    private ValidationWork validationWork;
     @Autowired
     private InformationDocumentService informationDocumentService;
 
+
+    /**
+     *
+     * @return стартовая страница
+     */
     @RequestMapping("/")
     public String showFirstView() {
         return "first-view";
     }
 
+    /**
+     *
+     * @param request позволяет получить информацию, запрошенную клиентом
+     * @return страница формы заполнения
+     */
     @RequestMapping("/addDetailsPeople")
     public String addNewPeople(HttpServletRequest request, Model model) {
+        ValidationWork validationWork = new ValidationWork();
+
         People people = new People(request.getParameter("peopleName"),
                 request.getParameter("lastName"),
                 request.getParameter("patronymic"),
@@ -65,18 +81,44 @@ public class MyController {
                 request.getParameter("dateVoen"), people, new Document("Военный билет")
         );
 
+        model.addAttribute("Pas", informationDocumentPas);
+        model.addAttribute("SNILS", informationDocumentSNILS);
+        model.addAttribute("INN", informationDocumentINN);
+        model.addAttribute("Vod", informationDocumentVod);
+        model.addAttribute("Prip", informationDocumentPrip);
+        model.addAttribute("Voen", informationDocumentVoen);
         return "add-people";
     }
 
+    /**
+     * сохранение человека
+     *
+     * @param informationDocument класс
+     * @return перенапрявляет на страницу выводе всех людей
+     */
+    @RequestMapping("savePeople")
+    public String savePeople(@ModelAttribute() InformationDocument informationDocument) {
+        informationDocumentService.saveInfDoc(informationDocument);
+        return "redirect:all-employees";
+    }
 
+
+    /**
+     * выводит всех зарегистрированных на
+     * экран
+     *
+     * @param model модель
+     * @return стартовая страница
+     */
     @RequestMapping("/allPeople")
     public String showAllEmployees(Model model) {
+        ValidationWork validationWork = new ValidationWork();
         List<InformationDocument> allInfoDocument = informationDocumentService.getAllInfoDocument();
         List<People> peopleList = new ArrayList<>();
         for (InformationDocument informationDocument : allInfoDocument) {
             peopleList.add(informationDocument.getPeople());
         }
         model.addAttribute("allEmps", validationWork.formPeopleShow(peopleList));
-        return "all-employees";
+        return "first_view";
     }
 }

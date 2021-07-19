@@ -4,7 +4,7 @@
 <h2>People info</h2>
 <br><br>
 <div>
-    <form action="/allPeople" method="get">
+    <form action="/savePeople" method="get">
         <input type="text" name="peopleName"
                placeholder="Имя">
         <br>

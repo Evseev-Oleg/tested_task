@@ -3,6 +3,9 @@ package com.evseevoleg.spring.mvc_hibernate.entity;
 import javax.persistence.*;;import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * класс-таблица people с БД
+ */
 @Entity
 @Table(name = "people")
 public class People {

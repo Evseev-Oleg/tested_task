@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * реализует интерфейс DAO
+ */
 @Repository
 public class InformationDocumentDAOImpl implements InformationDocumentDAO {
     @Autowired
@@ -19,5 +22,11 @@ public class InformationDocumentDAOImpl implements InformationDocumentDAO {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from InformationDocument", InformationDocument.class)
                 .getResultList();
+    }
+
+    @Override
+    public void saveInfDoc(InformationDocument informationDocument) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(informationDocument);
     }
 }

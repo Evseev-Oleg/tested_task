@@ -2,6 +2,9 @@ package com.evseevoleg.spring.mvc_hibernate.entity;
 
 import javax.persistence.*;
 
+/**
+ * класс-таблица document с БД
+ */
 @Entity
 @Table(name = "documents")
 public class InformationDocument {

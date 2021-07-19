@@ -10,6 +10,10 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * класс валидирующий и преобразующий полученные данные
+ * для MyController
+ */
 public class ValidationWork {
     public String formAge(LocalDate localDate) {
         return String.valueOf(Period.between(localDate, LocalDate.now()).getYears());
