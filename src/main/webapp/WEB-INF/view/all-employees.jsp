@@ -20,5 +20,8 @@
         </tr>
     </c:forEach>
 </table>
+<br>
+<input type="button" value="Fill-in form"
+       onclick="window.location.href = 'addDetailsPeople'">
 </body>
 </html>

@@ -1,10 +1,11 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <body>
 <h2>People info</h2>
 <br><br>
 <div>
-    <form action="/savePeople" method="get">
+    <form action="allPeople" method="get">
         <input type="text" name="peopleName"
                placeholder="Имя">
         <br>

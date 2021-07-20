@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *обрабатывает запрос пользователя, создаёт соответствующую
+ * обрабатывает запрос пользователя, создаёт соответствующую
  * Модель и передаёт её для отображения в view
  */
 @Controller
@@ -25,7 +25,6 @@ public class MyController {
 
 
     /**
-     *
      * @return стартовая страница
      */
     @RequestMapping("/")
@@ -33,23 +32,22 @@ public class MyController {
         return "first-view";
     }
 
+
     /**
+     * сохранение человека
      *
      * @param request позволяет получить информацию, запрошенную клиентом
      * @return страница формы заполнения
      */
+    @ModelAttribute
     @RequestMapping("/addDetailsPeople")
     public String addNewPeople(HttpServletRequest request, Model model) {
         ValidationWork validationWork = new ValidationWork();
-
         People people = new People(request.getParameter("peopleName"),
                 request.getParameter("lastName"),
                 request.getParameter("patronymic"),
                 request.getParameter("birthday"),
                 request.getParameter("sex"));
-
-
-        Document documentVoen = new Document("Военный билет");
 
         InformationDocument informationDocumentPas = validationWork.changeInformationDocumentParam(
                 request.getParameter("seriesPas"), request.getParameter("numberPas"),
@@ -87,19 +85,13 @@ public class MyController {
         model.addAttribute("Vod", informationDocumentVod);
         model.addAttribute("Prip", informationDocumentPrip);
         model.addAttribute("Voen", informationDocumentVoen);
+        informationDocumentService.saveInfDoc(informationDocumentPas);
+        informationDocumentService.saveInfDoc(informationDocumentSNILS);
+        informationDocumentService.saveInfDoc(informationDocumentINN);
+        informationDocumentService.saveInfDoc(informationDocumentVod);
+        informationDocumentService.saveInfDoc(informationDocumentPrip);
+        informationDocumentService.saveInfDoc(informationDocumentVoen);
         return "add-people";
-    }
-
-    /**
-     * сохранение человека
-     *
-     * @param informationDocument класс
-     * @return перенапрявляет на страницу выводе всех людей
-     */
-    @RequestMapping("savePeople")
-    public String savePeople(@ModelAttribute() InformationDocument informationDocument) {
-        informationDocumentService.saveInfDoc(informationDocument);
-        return "redirect:all-employees";
     }
 
 
@@ -119,6 +111,7 @@ public class MyController {
             peopleList.add(informationDocument.getPeople());
         }
         model.addAttribute("allEmps", validationWork.formPeopleShow(peopleList));
-        return "first_view";
+
+        return "all-employees";
     }
 }

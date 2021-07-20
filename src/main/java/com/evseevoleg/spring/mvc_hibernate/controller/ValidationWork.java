@@ -10,15 +10,32 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * класс валидирующий и преобразующий полученные данные
  * для MyController
  */
 public class ValidationWork {
+
+
+    /**
+     * вычисляет возраст человека
+     *
+     * @param localDate дата рождения
+     * @return возраст
+     */
     public String formAge(LocalDate localDate) {
         return String.valueOf(Period.between(localDate, LocalDate.now()).getYears());
     }
 
+
+    /**
+     * создает лист сущностей PeopleShow
+     * для формы вывода на экран
+     *
+     * @param peopleList полученный лист из БД
+     * @return лист PeopleShow
+     */
     public List<PeopleShow> formPeopleShow(List<People> peopleList) {
         List<PeopleShow> peopleShows = new ArrayList<>();
         for (People allPerson : peopleList) {
@@ -32,6 +49,16 @@ public class ValidationWork {
         return peopleShows;
     }
 
+    /**
+     * валидирует введенные с формы данные
+     *
+     * @param series серия
+     * @param number номер
+     * @param date дата выдачи
+     * @param people
+     * @param document
+     * @return  собранная сущность для отправки в БД
+     */
     public InformationDocument changeInformationDocumentParam(
             String series, String number, String date, People people, Document document) {
         InformationDocument informationDocument = new InformationDocument();
