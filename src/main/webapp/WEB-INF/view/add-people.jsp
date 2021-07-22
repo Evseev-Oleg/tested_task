@@ -5,7 +5,7 @@
 <h2>Форма ввода</h2>
 <br><br>
 <div>
-    <form action="allPeople" method="post">
+    <form action="savePeople" method="post">
         <label>
             <input type="text" name="peopleName"
                    placeholder="Имя">

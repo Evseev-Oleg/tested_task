@@ -81,20 +81,21 @@ public class MyController {
                 request.getParameter("seriesVoen"), request.getParameter("numberVoen"),
                 request.getParameter("dateVoen"), people, new Document("Военный билет")
         );
-        model.addAttribute("Pas", informationDocumentPas);
-        model.addAttribute("SNILS", informationDocumentSNILS);
-        model.addAttribute("INN", informationDocumentINN);
-        model.addAttribute("Vod", informationDocumentVod);
-        model.addAttribute("Prip", informationDocumentPrip);
-        model.addAttribute("Voen", informationDocumentVoen);
 
-        informationDocumentService.saveInfDoc(informationDocumentPas);
-        informationDocumentService.saveInfDoc(informationDocumentSNILS);
-        informationDocumentService.saveInfDoc(informationDocumentINN);
-        informationDocumentService.saveInfDoc(informationDocumentVod);
-        informationDocumentService.saveInfDoc(informationDocumentPrip);
-        informationDocumentService.saveInfDoc(informationDocumentVoen);
+        model.addAttribute("InfoDoc", informationDocumentPas);
+        model.addAttribute("InfoDoc", informationDocumentSNILS);
+        model.addAttribute("InfoDoc", informationDocumentINN);
+        model.addAttribute("InfoDoc", informationDocumentVod);
+        model.addAttribute("InfoDoc", informationDocumentPrip);
+        model.addAttribute("InfoDoc", informationDocumentVoen);
         return "add-people";
+    }
+
+
+    @RequestMapping("/savePeople")
+    public String savePeople(@ModelAttribute("InfoDoc") InformationDocument informationDocument) {
+        informationDocumentService.saveInfDoc(informationDocument);
+        return "redirect:allPeople";
     }
 
 
