@@ -1,9 +1,12 @@
 package com.evseevoleg.spring.mvc_hibernate.entity;
 
 
+import org.springframework.stereotype.Component;
+
 /**
  * сущность для страницы информации о всех людях
  */
+@Component
 public class PeopleShow {
     private String firstName;
     private String lastName;

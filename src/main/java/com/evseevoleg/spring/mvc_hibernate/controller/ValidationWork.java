@@ -4,6 +4,7 @@ import com.evseevoleg.spring.mvc_hibernate.entity.InformationDocument;
 import com.evseevoleg.spring.mvc_hibernate.entity.PeopleShow;
 import com.evseevoleg.spring.mvc_hibernate.entity.Document;
 import com.evseevoleg.spring.mvc_hibernate.entity.People;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -15,6 +16,7 @@ import java.util.List;
  * класс валидирующий и преобразующий полученные данные
  * для MyController
  */
+@Component
 public class ValidationWork {
 
 

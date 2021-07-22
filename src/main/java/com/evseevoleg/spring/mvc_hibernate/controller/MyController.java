@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -21,14 +22,17 @@ import java.util.List;
 @Controller
 public class MyController {
     @Autowired
+    private ValidationWork validationWork;
+    @Autowired
     private InformationDocumentService informationDocumentService;
 
 
     /**
      * @return стартовая страница
      */
-    @RequestMapping("/")
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public String showFirstView() {
+
         return "first-view";
     }
 
@@ -36,18 +40,17 @@ public class MyController {
     /**
      * сохранение человека
      *
-     * @param request позволяет получить информацию, запрошенную клиентом
+//     * @param request позволяет получить информацию, запрошенную клиентом
      * @return страница формы заполнения
      */
-    @ModelAttribute
     @RequestMapping("/addDetailsPeople")
     public String addNewPeople(HttpServletRequest request, Model model) {
-        ValidationWork validationWork = new ValidationWork();
         People people = new People(request.getParameter("peopleName"),
                 request.getParameter("lastName"),
                 request.getParameter("patronymic"),
                 request.getParameter("birthday"),
                 request.getParameter("sex"));
+
 
         InformationDocument informationDocumentPas = validationWork.changeInformationDocumentParam(
                 request.getParameter("seriesPas"), request.getParameter("numberPas"),
@@ -78,13 +81,13 @@ public class MyController {
                 request.getParameter("seriesVoen"), request.getParameter("numberVoen"),
                 request.getParameter("dateVoen"), people, new Document("Военный билет")
         );
-
         model.addAttribute("Pas", informationDocumentPas);
         model.addAttribute("SNILS", informationDocumentSNILS);
         model.addAttribute("INN", informationDocumentINN);
         model.addAttribute("Vod", informationDocumentVod);
         model.addAttribute("Prip", informationDocumentPrip);
         model.addAttribute("Voen", informationDocumentVoen);
+
         informationDocumentService.saveInfDoc(informationDocumentPas);
         informationDocumentService.saveInfDoc(informationDocumentSNILS);
         informationDocumentService.saveInfDoc(informationDocumentINN);
@@ -102,7 +105,7 @@ public class MyController {
      * @param model модель
      * @return стартовая страница
      */
-    @RequestMapping("/allPeople")
+    @RequestMapping(value = "/allPeople", method = RequestMethod.GET)
     public String showAllEmployees(Model model) {
         ValidationWork validationWork = new ValidationWork();
         List<InformationDocument> allInfoDocument = informationDocumentService.getAllInfoDocument();

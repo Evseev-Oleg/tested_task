@@ -4,6 +4,6 @@
 <h2>Application for saving personal data</h2>
 <br>
 <input type="button" value="Ok"
-     onclick="window.location.href = '/'">
+     onclick="window.location.href = 'addDetailsPeople'">
 </body>
 </html>
