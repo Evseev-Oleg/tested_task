@@ -45,7 +45,7 @@ public class Document {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "document")
+    @OneToMany(mappedBy = "type_document")
     public Set<InformationDocument> getInformationDocuments() {
         return informationDocuments;
     }
